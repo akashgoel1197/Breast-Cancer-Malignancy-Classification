@@ -142,7 +142,9 @@ class custom_model(object):
             total += y.size(0)
             correct += (predicted == y).sum()
         
-        return round(correct/float(total)*100, 4), round(am.value()[0],4), cm.value()    
+        cor_tot = str(correct) + "/" + str(total)
+        
+        return round(correct/float(total)*100, 4), cor_tot, round(am.value()[0],4), cm.value()   
         
             
             
