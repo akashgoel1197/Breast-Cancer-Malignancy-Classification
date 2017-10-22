@@ -37,19 +37,19 @@ def preprocess(df):
 
 
 
-load = loaders("model/data.csv", preprocess)
+load = loaders("data/data.csv", preprocess)
 
 
 
 tran = transforms.Compose([transforms.ToTensor()])
 
-a = open("datasets", "rb")
+a = open("data/datasets", "rb")
 datasets = pkl.load(a)
 
 train, test, valid = datasets[0], datasets[1], datasets[2]
 
 trainloader, testloader, validloader = load.get_loaders([0.6, 0.2, 0.2], tran)
-trainloader, testloader, validloader = get_dataloaders(datasets, tran)
+trainloader, testloader, validloader = get_dataloaders(datasets, tran, batch_size = 30)
 
 D_in, H, D_out = trainloader.dataset.shape[1] - 1, 30 , 2
 

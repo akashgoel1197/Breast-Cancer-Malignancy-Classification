@@ -104,7 +104,7 @@ class loaders(object):
         Returns: None
         """
         self.csv = csv
-        self.df = pd.read_csv("data.csv")
+        self.df = pd.read_csv(csv)
         self.preprocess = preprocess
         if preprocess:
             self.df = self.preprocess(self.df)
