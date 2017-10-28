@@ -85,25 +85,25 @@ def init_weights(m):
         m.bias.data.normal_(0, 2/float(12))
 
 #
-#
-#params = (lr, loss_fn, wd, optimizer)
-#ftr_imps = dict.fromkeys(cols)
-#for x in cols:
-#    comb_drop = combined.drop(x, axis = 1)
-#    
-#    train, test, valid = get_partitions(comb_drop,[0.6, 0.2, 0.2])
-#    datasets = train, test, valid
-#    dataloaders = get_dataloaders(datasets, tran, batch_size = 30)
-#    ftr_accu, ftr_auc, ftr_cm = trials(model, params, dataloaders, 5)
-#    print ("Accuracy after dropping feature", x)
-#    print ("Accuracy:", ftr_accu)
-#    print("AUC:", ftr_auc)
-#    print(ftr_cm)
-#    print("Difference:", ftr_accu - best_all_accu)
-#    ftr_imps[x] = (ftr_accu - best_all_accu, ftr_accu, ftr_auc)
-#
-#file = open("feature_importances_leave_one_out", "wb")
-#pkl.dump(ftr_imps, file)
+
+params = (lr, loss_fn, wd, optimizer)
+ftr_imps = dict.fromkeys(cols)
+for x in cols:
+    comb_drop = combined.drop(x, axis = 1)
+    
+    train, test, valid = get_partitions(comb_drop,[0.6, 0.2, 0.2])
+    datasets = train, test, valid
+    dataloaders = get_dataloaders(datasets, tran, batch_size = 30)
+    ftr_accu, ftr_auc, ftr_cm = trials(model, params, dataloaders, 5)
+    print ("Accuracy after dropping feature", x)
+    print ("Accuracy:", ftr_accu)
+    print("AUC:", ftr_auc)
+    print(ftr_cm)
+    print("Difference:", ftr_accu - best_all_accu)
+    ftr_imps[x] = (ftr_accu - best_all_accu, ftr_accu, ftr_auc)
+
+file = open("feature_importances_leave_one_out", "wb")
+pkl.dump(ftr_imps, file)
 #
 #D_in, H, D_out = 1, 30 , 2
 #
