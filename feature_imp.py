@@ -104,32 +104,32 @@ for x in cols:
 
 file = open("feature_importances_leave_one_out", "wb")
 pkl.dump(ftr_imps, file)
-#
-#D_in, H, D_out = 1, 30 , 2
-#
-#
-#model = torch.nn.Sequential(
-#    torch.nn.Linear(D_in, H),
-#    torch.nn.Tanh(),
-#    torch.nn.Linear(H, D_out),
-#    torch.nn.Softmax()
-#)
-#
-#for x in cols:
-#    comb_one = combined[[x, combined.columns[-1]]]  
-#    train, test, valid = get_partitions(comb_one,[0.6, 0.2, 0.2])
-#    datasets = train,test, valid
-#    dataloaders = get_dataloaders(datasets, tran, batch_size = 30)
-#    ftr_accu, ftr_auc, ftr_cm = trials(model, params, dataloaders, 5)
-#    print ("Accuracy after dropping feature", x)
-#    print ("Accuracy:", ftr_accu)
-#    print("AUC:", ftr_auc)
-#    print(ftr_cm)
-#    print("Difference:", ftr_accu - best_all_accu)
-#    ftr_imps[x] = (ftr_accu - best_all_accu, ftr_accu, ftr_auc)
-#
-#file = open("feature_importances_individual", "wb")
-#pkl.dump(ftr_imps, file)
-#
-#    
+
+D_in, H, D_out = 1, 30 , 2
+
+
+model = torch.nn.Sequential(
+    torch.nn.Linear(D_in, H),
+    torch.nn.Tanh(),
+    torch.nn.Linear(H, D_out),
+    torch.nn.Softmax()
+)
+
+for x in cols:
+    comb_one = combined[[x, combined.columns[-1]]]  
+    train, test, valid = get_partitions(comb_one,[0.6, 0.2, 0.2])
+    datasets = train,test, valid
+    dataloaders = get_dataloaders(datasets, tran, batch_size = 30)
+    ftr_accu, ftr_auc, ftr_cm = trials(model, params, dataloaders, 5)
+    print ("Accuracy after dropping feature", x)
+    print ("Accuracy:", ftr_accu)
+    print("AUC:", ftr_auc)
+    print(ftr_cm)
+    print("Difference:", ftr_accu - best_all_accu)
+    ftr_imps[x] = (ftr_accu - best_all_accu, ftr_accu, ftr_auc)
+
+file = open("feature_importances_individual", "wb")
+pkl.dump(ftr_imps, file)
+
+    
     
