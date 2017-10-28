@@ -21,6 +21,7 @@ from torch.utils.data import Dataset, DataLoader
 import torch.optim as optim
 from torch import nn
 from torchvision import transforms 
+tran = transforms.Compose([transforms.ToTensor()])
 
 class WBCDataset(Dataset):
     """
@@ -84,7 +85,33 @@ def get_dataloaders(datasets, transform = None, batch_size = 5, shuffle = True):
     validloader = DataLoader(validset, shuffle= True, batch_size=batch_size, num_workers=4)
     
     return trainloader, testloader, validloader    
+
+def get_partitions(df, partitions):
+        """
+        Partitions data into training, test and validation data in form of pandas
+        dataframes
+        
+        partitions: A list containing three values between 0 and 1.0, where the
+                    first, the second and the third element denotes the fraction 
+                    of the data to be partitioned into Training, test and valid-
+                    ation set respectively. The sum of the elements must equal 
+                    1.0
+        
+        Returns: A 3-tuple containing pandas Dataframes containing the training, 
+                 test and validation sets respectively
     
+        """
+        num_train = int(partitions[0]*df.shape[0])
+        num_test = int(partitions[1]*df.shape[0])
+        df_copy = df.copy()
+        
+        df_copy = df_copy.sample(frac = 1).reset_index(drop=True) #shuffle the data
+
+        train_set = df[:num_train]
+        test_set = df[num_train:num_train + num_test]
+        valid_set = df[num_train + num_test:]
+        
+        return train_set, test_set, valid_set  
 class loaders(object):
     """
     Loads the data from a CSV file. Capable of paritioned data either in form 

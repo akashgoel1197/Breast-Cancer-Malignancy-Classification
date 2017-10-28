@@ -88,7 +88,7 @@ class custom_model(object):
                 break
                 
             prev_valid_score = curr_valid_score
-        print("The validation accuracy was", curr_valid_score)
+        return curr_valid_score
 
 #            print("The validation accuracy was", curr_valid_score)
 
