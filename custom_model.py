@@ -168,7 +168,7 @@ class custom_model(object):
         plt.plot(steps, accus, color = 'b', label = 'Train Accuracy')
         plt.plot(steps, accus_train, color = 'r', label = 'trTrain Accuracy')
         plt.legend(['Test accuracy', 'Training Accuracy'])
-        
+
     
     def set_loss(self, loss_fn):
         self.loss_fn = loss_fn
